@@ -1,0 +1,15 @@
+net: "/home/tianluchao/ProgramFiles/caffe/examples/CASIA-WebFace-LFW/train_val.prototxt"
+test_iter: 2437 #The number of val images 48732/the batch size of the test phase 20.
+test_interval: 2101 #201660 train images, batch size 96, 2100.625 iter to finish an epoch, test interval 2101, that is we test the network every epoch.
+test_initialization: false
+display: 50
+average_loss: 40
+base_lr: 0.1 #0.000218161#0.01
+lr_policy: "poly"
+power: 0.5
+max_iter: 189090 #126060 #63030
+momentum: 0.9
+weight_decay: 0.0002
+snapshot: 10505 #6303
+snapshot_prefix: "/home/tianluchao/ProgramFiles/caffe/examples/CASIA-WebFace-LFW/googlenet_quick_total189090_over50_2nd"
+solver_mode: GPU
