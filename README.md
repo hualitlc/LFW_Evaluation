@@ -8,6 +8,7 @@ Learn more about LFW dataset and parse related files. Try to change or design a 
 - 10,575 subjects and 494,414 images
 - Thank Zhanxiong Wang for providing this dataset. If you have interest in face recognition and face attribute prediction, you can refer to this article [Multi-task Deep Neural Network for Joint Face Recognition and Facial Attribute Prediction](https://dl.acm.org/citation.cfm?id=3078973).
 2. [LFW dataset](http://vis-www.cs.umass.edu/lfw/).
+- 13233 images, 5749 people and 1680 people with two or more images
 3. [Caffe](http://caffe.berkeleyvision.org/).
 4. The implementation of GoogLeNet in Caffe.
 
@@ -55,7 +56,7 @@ The accuracy of different feature dimensions is shown below:
 - 1024 feature dimension: 0.945\*
 - 2048 feature dimension: 0.949666666667\*
 - 4096 feature dimension: 0.951
-- 5120 feature dimension: 0.948833333333 <br>
+- 5120 feature dimension: 0.948833333333
 - *\*The foleder **result_160dim, result_1024dim and result_2048dim** did not have **thresholds.txt**, this file have been overwritten because of the path setting problem.*
 
 The ROC curves of different settings are almost the same, so we only display the result of 4096 feature dimensions.
