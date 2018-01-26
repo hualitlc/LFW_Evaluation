@@ -55,8 +55,8 @@ The accuracy of different feature dimensions is shown below:
 - 1024 feature dimension: 0.945\*
 - 2048 feature dimension: 0.949666666667\*
 - 4096 feature dimension: 0.951
-- 5120 feature dimension: 0.948833333333
-    *\*The foleder **result_160dim, result_1024dim and result_2048dim** did not have **thresholds.txt**, this file have been overwritten because of the path setting problem.*
+- 5120 feature dimension: 0.948833333333 <br>
+*\*The foleder **result_160dim, result_1024dim and result_2048dim** did not have **thresholds.txt**, this file have been overwritten because of the path setting problem.*
 
 The ROC curves of different settings are almost the same, so we only display the result of 4096 feature dimensions.
 ![image](https://github.com/hualitlc/LFW_Evaluation/blob/master/result_4096dim/GoogLeNet_6000_189090_roc.png)
@@ -71,6 +71,7 @@ The ROC curves of different settings are almost the same, so we only display the
   warnings.warn("No labelled objects found.
 ```
 You have to provide a label=.. keyword in the plot function for each line you want to plot, as matplotlib does not automatically detect names from a numpy structured array. Ref: https://stackoverflow.com/questions/16488037/how-to-use-names-when-importing-csv-data-into-matplotlib.
+3. The rules of using Markdown. Ref: https://www.cnblogs.com/xinmengwuheng/p/5794899.html.
 
 
 ### Welcome
