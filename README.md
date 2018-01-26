@@ -16,12 +16,51 @@ Learn more about LFW dataset and parse related files. Try to change or design a 
 0. We have got these two datasets (CASIA-WebFace and LFW) which have been cropped and aligned. So we did not have the image preprossing step.
 1. Train model on CASIA-WebFace dataset using caffe framework. We have tried two deep models. One is GoogLeNet implemented in caffe and the other is ResNet50. Bue we found we could not make the network converged no matter what we did. We have tried to turn the BN layer on or off (use_global_status=false/true).
 2. We search on the Internet and find some people said that "this dataset needs to carefully 'washed' because this dataset is a little 'dirty'". Although this dataset has so many data, but there exists a serious data imbalance. Someone have one or two pictures, but another people may have more than 200 pictures. So we only selected the people with more than 50 pictures use the script **create_filelist_over50.py** to implement this. Finally, we got 2228 people and 250392 pictures (201660 for training, 48732 for testing).
-3. We train from scratch and excute 189090 iterations (about 90 epochs), and save the caffemodel every 3 epochs. Finally, the accuracy is about 93%. This is a rough resut because we did not try to use some tricks and attempt to use different lr_policy and some hyper-parameter related changes.
+3. We train from scratch the googlenet model and excute 189090 iterations (about 90 epochs), and save the caffemodel every 5 epochs. Finally, the accuracy is about 93%. This is a rough resut because we did not try to use some tricks and attempt to use different lr_policy and some hyper-parameter related changes.
 4. Test on LFW dataset.
 - [1] Parse the pairs.txt provided by the official website and get lfw_left.txt, lfw_right.txt and label.txt. We totally have 6000 test pairs (3000 positive pairs and 3000 negative pairs). Each test pair, the 'left' image and its path is stored in lfw_left.txt, the 'right' image and its path is stored in lfw_right.txt, and the label ('0' represents match and '1' represents mismatch) is stored in label.txt. Use the script **generateTestDataList.py**.
-- [2] Use the model *.caffemodel* and *deploy.prototxt* and the script **testModelOnLFW.py** to get the feature dimension and calculate the similarity using cosine distance. Finally we get the accuracy, predicts.txt and ROC curves.
+- [2] Use the googlenet model *.caffemodel* and *deploy.prototxt* and the script **testModelOnLFW.py** to get the feature dimension and calculate the similarity using cosine distance. Finally we get the accuracy, predicts.txt and ROC curves.
 
 
+### Results
+We change the name of the *loss3/classifier* to *googlenetOutput* (if we don't excute this operation, then we use the weights learned from .caffemodel, there will have a 'number_output mismatch' error, because we train from scratch the googlenet model, the number_output is 2228, so if we want to use this trained model to extract X dimensions features, we must change the layer name and parameter 'number_output') and change the *num_output* into different dimensions, such as 160, 1024, 2048, 4096, 5120..., to extract features of different dimensions.
+```
+layer {
+  name: "googlenetOutput"#loss3/classifier
+  type: "InnerProduct"
+  bottom: "pool5/7x7_s1"
+  top: "googlenetOutput"#loss3/classifier
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 5120   # extract features of different dimensions
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+```
+The accuracy of different feature dimensions is shown below:
+- 160 : 0.920333333333* 
+- 1024: 0.945*
+- 2048: 0.949666666667*
+- 4096: 0.951
+- 5120: 0.948833333333
+
+*\*(the result_160dim, result_1024dim and result_2048dim did not have thresholds.txt, this file have been overwritten because the problem of setting up the path)*
+
+The ROC curves of different settings are almost the same, so we only display the result of 4096 feature dimensions.
+![image](https://github.com/hualitlc/LFW_Evaluation/blob/master/result_4096dim/GoogLeNet_6000_189090_roc.png)
 
 ### Related discussions
 0. The theory of using multi-gpu to train your network in Caffe. Ref: https://github.com/BVLC/caffe/blob/master/docs/multigpu.md. 
