@@ -56,17 +56,16 @@ The accuracy of different feature dimensions is shown below:
 - 2048 feature dimension: 0.949666666667\*
 - 4096 feature dimension: 0.951
 - 5120 feature dimension: 0.948833333333
-
-\*The foleder *result_160dim, result_1024dim and result_2048dim* did not have *thresholds.txt*, this file have been overwritten because of the path setting problem.
+*\*The foleder **result_160dim, result_1024dim and result_2048dim** did not have **thresholds.txt**, this file have been overwritten because of the path setting problem.*
 
 The ROC curves of different settings are almost the same, so we only display the result of 4096 feature dimensions.
 ![image](https://github.com/hualitlc/LFW_Evaluation/blob/master/result_4096dim/GoogLeNet_6000_189090_roc.png)
 
 ### Related discussions
-0. The theory of using multi-gpu to train your network in Caffe. Ref: https://github.com/BVLC/caffe/blob/master/docs/multigpu.md. 
+1. The theory of using multi-gpu to train your network in Caffe. Ref: https://github.com/BVLC/caffe/blob/master/docs/multigpu.md. 
 - We found that when the network in 'test' phase, the memory used in 'train' phase will not be released. So you should choose a appropriate batch size. 
 - If use batch size 64 on one gpu, the memory used is A1; then your train stage's batch size is 64 on four gpu, the memory is also used A1.
-1. If you met this problem
+2. If you met this problem
 ```
 /usr/local/lib/python2.7/dist-packages/matplotlib/axes/\_axes.py:545: UserWarning: No labelled objects found. Use label='...' kwarg on is.
   warnings.warn("No labelled objects found.
