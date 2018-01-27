@@ -74,6 +74,7 @@ The ROC curves of different settings are almost the same, so we only display the
 You have to provide a label=.. keyword in the plot function for each line you want to plot, as matplotlib does not automatically detect names from a numpy structured array. Ref: https://stackoverflow.com/questions/16488037/how-to-use-names-when-importing-csv-data-into-matplotlib.
 
 3. The rules of using Markdown. Ref: https://www.cnblogs.com/xinmengwuheng/p/5794899.html.
+4. How to evaluate your model. Ref: 利用LFW对人脸识别模型进行精度评测, http://blog.csdn.net/fuwenyan/article/details/74943248
 
 
 ### Welcome
